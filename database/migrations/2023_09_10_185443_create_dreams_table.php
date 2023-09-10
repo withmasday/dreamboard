@@ -13,8 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dreams', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('board_id')->unsigned();
-            $table->bigInteger('username')->nullable();
+            $table->string('username')->nullable();
             $table->text('text');
             $table->boolean('incognito')->default(false);
             $table->integer('top')->default(20);

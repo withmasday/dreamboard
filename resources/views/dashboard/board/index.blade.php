@@ -28,15 +28,17 @@
                     <thead>
                         <tr>
                             <th scope="col" class="text-secondary text-center">Board Title</th>
-                            <th scope="col" class="text-secondary text-center">Publish Status</th>
-                            <th scope="col" class="text-secondary text-center">Board Password</th>
-                            <th scope="col" class="text-secondary text-center">Action</th>
+                            <th scope="col" class="text-secondary text-center">Publish</th>
+                            <th scope="col" class="text-secondary text-center">Password</th>
+                            <th scope="col" class="text-secondary text-center" style="width: 230px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $board)
                             <tr>
-                                <td class="text-secondary">{{ $board->title }}</td>
+                                <td class="text-secondary">
+                                    {{ strlen($board->title) > 140 ? substr_replace($board->title, '...', 140) : $board->title }}
+                                </td>
                                 <td class="text-secondary text-center">
                                     @if ($board->publish == true)
                                         <span class="badge btn-successc" style="font-size: 10px !important;">PUBLISH</span>
@@ -53,9 +55,10 @@
                                     <a href="{{ route('dashboard.board.edit', $board->id) }}" class="btn btn-infoc mx-1">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <button class="btn btn-dangerc mx-1" onclick="dataRemove(this)" uri="#">
+                                    <a class="btn btn-dangerc mx-1"
+                                        href="{{ route('dashboard.board.destroy', $board->id) }}">
                                         <i class="bi bi-trash-fill"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

@@ -80,7 +80,11 @@ class BoardController extends Controller
     {
         try {
             $data = Board::find($id);
-            return view('dashboard.board.edit', ['data' => $data]);
+            if ($data->username == Auth::user()->username) {
+                return view('dashboard.board.edit', ['data' => $data]);
+            }
+
+            return back()->with('error', 'Unauthorized.');
         } catch (Throwable $e) {
             return back()->with('error', 'We will back again.');
         }
@@ -101,26 +105,30 @@ class BoardController extends Controller
 
         try {
             $data = Board::find($id);
-            if ($request->publish == true) {
-                $publish = true;
-                $password = null;
-            } else {
-                $publish = false;
-                $password = $request->password;
+            if ($data->username == Auth::user()->username) {
+                if ($request->publish == true) {
+                    $publish = true;
+                    $password = null;
+                } else {
+                    $publish = false;
+                    $password = $request->password;
+                }
+
+                $field = [
+                    'username' => Auth::user()->username,
+                    'title' => $request->title,
+                    'publish' => $publish,
+                    'password' => $password
+                ];
+
+                if ($data->update($field)) {
+                    return redirect()->route('dashboard.board.index')->with('success', 'Update board success.');
+                }
+
+                return redirect()->route('dashboard.board.edit', $id)->with('error', 'Something wrong when update data.');
             }
 
-            $field = [
-                'username' => Auth::user()->username,
-                'title' => $request->title,
-                'publish' => $publish,
-                'password' => $password
-            ];
-
-            if ($data->update($field)) {
-                return redirect()->route('dashboard.board.index')->with('success', 'Update board success.');
-            }
-
-            return redirect()->route('dashboard.board.edit', $id)->with('error', 'Something wrong when update data.');
+            return back()->with('error', 'Unauthorized.');
         } catch (Throwable $e) {
             return back()->with('error', 'We will back again.');
         }
@@ -131,6 +139,18 @@ class BoardController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $data = Board::find($id);
+
+            if ($data->username == Auth::user()->username) {
+                $data->delete();
+                Dream::where('board_id', '=', $id)->delete();
+                return redirect()->route('dashboard.board.index')->with('success', 'Remove board success.');
+            }
+
+            return back()->with('error', 'Unauthorized.');
+        } catch (Throwable $e) {
+            return back()->with('error', 'We will back again.');
+        }
     }
 }

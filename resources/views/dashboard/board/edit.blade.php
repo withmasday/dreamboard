@@ -9,7 +9,7 @@
     <div class="row justify-content-end pt-4 adminsp-mobile">
         <div class="col-sm-9 bg-white rounded-3 shadow-sm pt-3 pb-3 me-4">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <h5 class="text-primaryc pt-2">
                         <i class="bi bi-plus-square me-2"></i> Update : {{ $data->title }}
                     </h5>

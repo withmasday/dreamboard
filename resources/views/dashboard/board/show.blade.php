@@ -6,12 +6,12 @@
     <div class="row justify-content-end pt-4 adminsp-mobile">
         <div class="col-sm-9 bg-white rounded-3 shadow-sm pt-3 pb-2 me-4">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <h4 class="text-primaryc pt-2">
-                        <i class="bi bi-view-list me-2"></i> Our Dream : {{ $title }}
+                        <i class="bi bi-view-list me-2"></i> Our Dreamer :
+                        {{ $title }}
                     </h4>
                 </div>
-                <div class="col-sm-5"></div>
             </div>
         </div>
     </div>
@@ -24,13 +24,15 @@
                         <tr>
                             <th scope="col" class="text-secondary text-center">Dream Text</th>
                             <th scope="col" class="text-secondary text-center">Dreamer</th>
-                            <th scope="col" class="text-secondary text-center">Action</th>
+                            <th scope="col" class="text-secondary text-center" style="width: 150px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $dream)
                             <tr>
-                                <td class="text-secondary">{{ $dream->text }}</td>
+                                <td class="text-secondary">
+                                    {{ strlen($dream->text) > 230 ? substr_replace($dream->text, '...', 250) : $dream->text }}
+                                </td>
                                 <td class="text-secondary text-center">
                                     {{ $dream->username == null ? 'anonymous' : $dream->username }}
                                 </td>
@@ -38,9 +40,6 @@
                                 <td class="text-secondary text-center">
                                     <a href=#" class="btn btn-primaryc mx-1">
                                         <i class="bi bi-eye-fill"></i>
-                                    </a>
-                                    <a href="{{ route('dashboard.board.edit', $dream->id) }}" class="btn btn-infoc mx-1">
-                                        <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <button class="btn btn-dangerc mx-1" onclick="dataRemove(this)" uri="#">
                                         <i class="bi bi-trash-fill"></i>
