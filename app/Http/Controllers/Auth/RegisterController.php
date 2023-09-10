@@ -9,6 +9,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class RegisterController extends Controller
 {
     /*
@@ -41,33 +44,30 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    public function handleSignup(Request $request)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        $validator = Validator::make($request->all(), [
+            'fullname' => 'string|required|max:255',
+            'username' => 'string|required|unique:users',
+            'password' => 'string|required',
         ]);
-    }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if ($validator->fails()) {
+            return back()->with('error', $validator->messages()->all()[0]);
+        }
+
+
+        $data = [
+            'fullname' => $request->fullname,
+            'username' => $request->username,
+            'password' => Hash::make($request->password)
+        ];
+
+
+        if (User::create($data)) {
+            return redirect()->route('login')->with('success', 'Sign Up Success.');
+        } else {
+            return back()->with('error', 'Something wrong...');
+        }
     }
 }

@@ -1,77 +1,85 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+    <title>{{ env('APP_NAME') }}</title>
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/auth.css') }}">
+</head>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+<body class="bg-light">
+    <div id="particles-js"></div>
+    <form class="row signin justify-content-center" method="POST" action="{{ route('handleSignup') }}"
+        style="padding-top: 7% !important;" autocomplete="off">
+        @csrf
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        <div class="col-sm-3 bg-white rounded-0 shadow-lg p-5">
+            <h3 class="text-primaryc">{{ env('APP_NAME') }} | Sign Up</h3>
+            <div class="mt-5">
+                <label for="fullname">Fullname</label>
+                <input type="text" class="form-control shadow-none" name="fullname" id="fullname"
+                    aria-autocomplete="none" autocomplete="off" />
+            </div>
+            <div class="mt-3">
+                <label for="username">Username</label>
+                <input type="text" class="form-control shadow-none" name="username" id="username"
+                    aria-autocomplete="none" autocomplete="off" />
+            </div>
+            <div class="mt-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control shadow-none" name="password" id="password"
+                    aria-autocomplete="none" autocomplete="off" />
+            </div>
+            <div class="mt-4">
+                <button type="submit" name="signup" class="btn btn-primaryc py-2 w-100">
+                    Sign Up
+                </button>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <a href="{{ route('login') }}" class="btn text-secondary py-2 mt-3 w-100" style="font-size: 13px;">
+                    SignIn Now
+                </a>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+
+    </form>
+    <footer class="mt-5 pb-3 text-end me-3 fixed-bottom">
+        <span class="text-footer">
+            {{ date('Y') }} &copy; {{ env('APP_NAME') }} - All Right Reserved
+        </span>
+    </footer>
+    <script type="text/javascript" src="{{ asset('/js/jquery-3.6.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/particles.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/particles-app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/sweetalert2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/auth.js') }}"></script>
+
+    @if (Session::has('success'))
+        <script type="text/javascript">
+            Swal.fire(
+                "Success!",
+                "{{ Session::get('success') }}",
+                "success"
+            );
+        </script>
+    @endif
+
+    @if (Session::has('error'))
+        <script type="text/javascript">
+            Swal.fire(
+                "W0pzzz!",
+                "{{ Session::get('error') }}",
+                "error"
+            );
+        </script>
+    @endif
+</body>
+
+</html>

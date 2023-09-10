@@ -227,7 +227,7 @@ footer .text-footer {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: var(--white);
+    background-color: #130f40;
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;

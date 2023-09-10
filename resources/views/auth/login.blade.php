@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $APP_NAME }}</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/auth.css') }}">
@@ -15,12 +15,12 @@
 
 <body class="bg-light">
     <div id="particles-js"></div>
-    <form class="row signin justify-content-center" method="POST" action="{{ route('handleSign') }}"
+    <form class="row signin justify-content-center" method="POST" action="{{ route('handleSignin') }}"
         autocomplete="off">
         @csrf
 
-        <div class="col-sm-3 bg-white rounded-3 shadow-lg p-5">
-            <h3 class="text-primaryc">{{ $APP_NAME }} | Sign In</h3>
+        <div class="col-sm-3 bg-white rounded-0 shadow-lg p-5">
+            <h3 class="text-primaryc">{{ env('APP_NAME') }} | Sign In</h3>
             <div class="mt-5">
                 <label for="username">Username</label>
                 <input type="text" class="form-control shadow-none" name="username" id="username"
@@ -33,24 +33,27 @@
             </div>
             <div class="mt-4">
                 <button type="submit" name="signin" class="btn btn-primaryc py-2 w-100">
-                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                    Sign In
                 </button>
+
+                <a href="{{ route('register') }}" class="btn text-secondary py-2 mt-3 w-100"
+                    style="font-size: 13px;">have account? SignUp here</a>
             </div>
         </div>
 
     </form>
     <footer class="mt-5 pb-3 text-end me-3 fixed-bottom">
         <span class="text-footer">
-            {{ date('Y') }} &copy; {{ $APP_NAME }} - All Right Reserved
+            {{ date('Y') }} &copy; {{ env('APP_NAME') }} - All Right Reserved
         </span>
     </footer>
     <script type="text/javascript" src="{{ asset('/js/jquery-3.6.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/auth.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/particles.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/particles-app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/sweetalert2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/auth.js') }}"></script>
 
     @if (Session::has('success'))
         <script type="text/javascript">
