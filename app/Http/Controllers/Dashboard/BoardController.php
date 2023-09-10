@@ -14,7 +14,7 @@ class BoardController extends Controller
 {
     public function index()
     {
-        $data = Board::orderBy('id', 'DESC')->paginate(20);
+        $data = Board::where('username', '=', Auth::user()->username)->orderBy('id', 'DESC')->paginate(20);
         return view('dashboard.board.index', ['data' => $data]);
     }
 
@@ -62,7 +62,7 @@ class BoardController extends Controller
     public function show(string $id)
     {
         try {
-            $board = Board::find($id);
+            $board = Board::where('id', '=', $id)->where('username', '=', Auth::user()->username)->first();
             $data = Dream::where('board_id', '=', $id)
                 ->orderBy('id', 'DESC')
                 ->paginate(20);
