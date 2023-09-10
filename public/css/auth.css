@@ -270,3 +270,26 @@ footer .text-footer {
         table-layout: auto !important;
     }
 }
+
+/* Bootstrap Toggle Checkbox */
+.toggle-on,
+.toggle-on:hover {
+    background-color: var(--bg-primary) !important;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    text-align: center !important;
+}
+
+.toggle-off,
+.toggle-off:hover {
+    text-align: center !important;
+    background-color: var(--bg-danger) !important;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-weight: 700 !important;
+    color: var(--danger) !important;
+}

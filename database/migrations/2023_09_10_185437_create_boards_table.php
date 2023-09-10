@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
+            $table->string('username');
             $table->string('title');
             $table->boolean('publish')->default(true);
-            $table->string('password')->default(null);
+            $table->string('password')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('username')->references('username')->on('users')->onDelete('cascade');
         });
     }
 
