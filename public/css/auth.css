@@ -1,0 +1,272 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+* {
+    font-family: "Poppins", sans-serif !important;
+}
+
+:root {
+    --danger: rgba(255, 71, 87, 1);
+    --bg-danger: rgba(255, 71, 87, 0.3);
+    --success: rgba(46, 213, 115, 1);
+    --bg-success: rgba(46, 213, 115, 0.3);
+    --primary: rgba(55, 66, 250, 1);
+    --bg-primary: rgba(55, 66, 250, 0.3);
+    --light: rgba(241, 242, 246, 1);
+    --bg-light: rgba(241, 242, 246, 0.3);
+    --secondary: rgba(164, 176, 190, 1);
+    --bg-secondary: rgba(164, 176, 190, 0.3);
+    --dark: rgba(47, 53, 66, 1);
+    --bg-dark: rgba(47, 53, 66, 0.3);
+    --info: rgba(30, 144, 255, 1);
+    --bg-info: rgba(30, 144, 255, 0.3);
+    --warning: rgba(246, 229, 141, 1);
+    --bg-warning: rgba(246, 229, 141, 0.3);
+    --white: rgba(255, 255, 255, 1);
+    --transparent: transparent;
+}
+
+/* Utils */
+.breadcrumb-item {
+    font-size: 14px !important;
+}
+
+.breadcrumb-item a {
+    color: var(--primary) !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.paginate .relative {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--secondary);
+    border-style: none !important;
+    cursor: pointer;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    text-decoration: none !important;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.text-primaryc {
+    color: var(--primary);
+}
+
+label {
+    color: var(--secondary);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-span {
+    color: var(--danger);
+    font-weight: 400;
+    font-size: 11px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+textarea {
+    border: 0;
+    box-shadow: none;
+    border-radius: 0px;
+    padding-left: 0px;
+    border-bottom: 2px solid var(--bg-secondary);
+    color: var(--secondary);
+    font-weight: 400;
+    font-size: 14px;
+}
+
+input[type="file"] {
+    box-shadow: none;
+    color: var(--secondary);
+    font-weight: 400;
+    font-size: 13px;
+}
+
+/* Button */
+
+.active > .page-link,
+.page-link.active {
+    background-color: var(--bg-primary);
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.btn-successc,
+.btn-successc:hover {
+    background-color: var(--bg-success) !important;
+    color: var(--success) !important;
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.btn-primaryc,
+.btn-primaryc:hover {
+    background-color: var(--bg-primary);
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.btn-primaryc2 {
+    background-color: var(--bg-light);
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+    transition: 0.5s;
+}
+
+.btn-primaryc3 {
+    background-color: var(--bg-light);
+    color: var(--secondary);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+    transition: 0.5s;
+}
+
+.btn-primaryc2:hover,
+.btn-primaryc3:hover {
+    background-color: var(--bg-primary);
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.btn-secondaryc,
+.btn-secondaryc:hover {
+    background-color: var(--bg-secondary);
+    color: var(--secondary);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.btn-dangerc,
+.btn-dangerc:hover {
+    background-color: var(--bg-danger);
+    color: var(--danger);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.btn-infoc,
+.btn-infoc:hover {
+    background-color: var(--bg-info);
+    color: var(--info);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.navbar {
+    z-index: 9999 !important;
+}
+
+.offcanvas {
+    width: 300px !important;
+    z-index: 1;
+}
+
+.dropdown-menu {
+    background-color: var(--bg-primary);
+    color: var(--primary);
+    border: 0px;
+}
+
+.dropdown-item {
+    font-size: 14px;
+    color: var(--primary);
+}
+
+.dropdown-item:hover {
+    background-color: var(--transparent);
+    color: var(--primary);
+}
+
+/* Footer */
+footer .text-footer {
+    color: var(--secondary);
+    font-weight: 400;
+    font-size: 14px;
+}
+
+/* ParticleJS */
+#particles-js {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--white);
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.signin {
+    z-index: 999;
+    padding-top: 10%;
+}
+
+/* Admin Category */
+.card-title {
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--secondary);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 230px;
+    border-radius: 20px;
+}
+
+.adminsp-mobile:last-child {
+    margin-bottom: 80px;
+}
+
+@media only screen and (max-width: 767px) {
+    .adminsp-mobile {
+        margin-left: 2rem !important;
+    }
+
+    .offcanvas-body {
+        margin-top: 40px;
+    }
+
+    .table-responsive .table {
+        width: 1000px !important;
+        table-layout: auto !important;
+    }
+}
