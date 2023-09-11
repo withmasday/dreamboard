@@ -41,6 +41,10 @@
                     Sign Up
                 </button>
 
+                <a href="{{ route('googleAuth') }}" class="btn bg-white py-2 w-100 mt-3 text-primary">
+                    <i class="bi bi-google text-primary"></i>
+                </a>
+
                 <a href="{{ route('login') }}" class="btn text-secondary py-2 mt-3 w-100" style="font-size: 13px;">
                     SignIn Now
                 </a>

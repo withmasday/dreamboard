@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -40,6 +43,37 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function googleAuth()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googleCallback(Request $request)
+    {
+        $user = Socialite::driver('google')->user();
+        $email = $user->getEmail();
+        $username = str_replace("@google.com", "", $email);
+
+        $fuser = User::where('username', '=', $username)->first();
+
+        if ($fuser) {
+            Auth::login($fuser);
+            return redirect()->route('dashboard.index')->with('success', 'Sign In Success.');
+        }
+
+        $data = [
+            'fullname' => $user->getName(),
+            'username' => $username,
+            'password' => bcrypt(Str::uuid())
+        ];
+
+        if (Auth::attempt($data)) {
+            return redirect()->route('dashboard.index')->with('success', 'Sign In Success.');
+        } else {
+            return back()->with('error', 'Incorrect username/password.');
+        }
     }
 
     public function handleSignin(Request $request)
