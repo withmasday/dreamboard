@@ -12,6 +12,12 @@ use Throwable;
 
 class BoardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
         $data = Board::where('username', '=', Auth::user()->username)->orderBy('id', 'DESC')->paginate(20);
@@ -59,7 +65,7 @@ class BoardController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(Request $request, $id)
     {
         try {
             $board = Board::where('id', '=', $id)->where('username', '=', Auth::user()->username)->first();
@@ -149,6 +155,18 @@ class BoardController extends Controller
             }
 
             return back()->with('error', 'Unauthorized.');
+        } catch (Throwable $e) {
+            return back()->with('error', 'We will back again.');
+        }
+    }
+
+    public function board(Request $request, $username, $board_id)
+    {
+        try {
+            $board = Board::where('id', '=', $board_id)->where('username', '=', $username)->first();
+            $data = Dream::where('board_id', '=', $board_id)->get();
+
+            return view('board', ['title' => $board->title, 'data' => $data, 'board_id' => $board_id]);
         } catch (Throwable $e) {
             return back()->with('error', 'We will back again.');
         }

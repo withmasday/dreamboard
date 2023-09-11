@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\APIBoardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\BoardController;
@@ -17,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes(['password.request' => false, 'password.update' => false, 'password.reset' => false]);
 
@@ -41,4 +38,16 @@ Route::prefix('/dashboard')->middleware(['auth'])->group(function () {
     });
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('/helper')->middleware(['auth'])->group(function () {
+    Route::get('/dreamer/{board_id}/{dream_id}', [APIBoardController::class, 'dreamer'])->name('api.dreamer');
+    Route::get('/rmdreamer/{board_id}/{dream_id}', [APIBoardController::class, 'rmdreamer'])->name('api.rmdreamer');
+    Route::post('/dreamposition', [APIBoardController::class, 'dreamposition'])->name('api.dreamposition');
+});
+
+Route::prefix('/board')->middleware(['auth'])->group(function () {
+    Route::get('/{username}/{board_id}', [BoardController::class, 'board'])->name('board');
+});
+
+Route::get('/', function () {
+    return redirect()->route('dashboard.index');
+});

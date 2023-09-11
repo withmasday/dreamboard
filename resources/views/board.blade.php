@@ -4,41 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ env('APP_NAME') }} | Dream Board - {{ $title }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/client.css') }}">
 </head>
 
-<body id="particles-js">
-    <h1 class="text-center heading">Wake Up</h1>
-    <div class="box shadow-sm" id="box-1-trustsec" style="color: #ffffff;background-color: #30336b;">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-        <div class="text-center">
-            <div class="writter" style="color: #ffffff;">Muhammad Hidayat</div>
-            <div class="date" style="color: #ffffff;">11/10/2023</div>
-        </div>
-    </div>
+<body>
+    <div id="particles-js"></div>
+    <h1 class="text-center text-white brand-name">
+        {{ env('APP_NAME') }}
+        <span class="heading"> | {{ $title }}</span>
+    </h1>
 
-    <div class="box shadow-sm" id="box-2-trustsec" style="color: #ffffff;background-color: #30336b;">
-        Aku sayang ibu
-        <div class="text-center">
-            <div class="writter" style="color: #ffffff;">Muhammad Hidayat</div>
-            <div class="date" style="color: #ffffff;">11/10/2023</div>
+    @foreach ($data as $dream)
+        <div class="box shadow-sm" id="box-dreamer-{{ $dream->id }}" box-id="{{ $dream->id }}"
+            style="color: {{ $dream->color }};background-color: {{ $dream->background }};">
+            {{ $dream->text }}
+            <div class="text-center">
+                <div class="writter" style="color: {{ $dream->color }};">{{ $dream->username }}</div>
+                <div class="date" style="color: {{ $dream->color }};">
+                    {{ date('d/m/Y', strtotime($dream->created_at)) }}
+                </div>
+            </div>
         </div>
-    </div>
+    @endforeach
+
 
     <script>
         (function() {
-            posistionGenerate(document.getElementById("box-1-trustsec"), 30, 50);
-            dragger(document.getElementById("box-1-trustsec"));
-
-            posistionGenerate(document.getElementById("box-2-trustsec"), 100, 200);
-            dragger(document.getElementById("box-2-trustsec"));
+            @foreach ($data as $dream)
+                posistionGenerate(document.getElementById("box-dreamer-{{ $dream->id }}"), {{ $dream->top }},
+                    {{ $dream->left }});
+                dragger(document.getElementById("box-dreamer-{{ $dream->id }}"));
+            @endforeach
         })();
 
 
@@ -81,8 +80,25 @@
             function closeDragElement() {
                 document.onmouseup = null;
                 document.onmousemove = null;
-                console.log(`OFFSET LEFT : ${pos3}`)
-                console.log(`OFFSET TOP  : ${pos4}`)
+
+                let dreamID = elmnt.getAttribute("box-id");
+                let boardID = '{{ $board_id }}';
+                let positionTOP = (elmnt.offsetTop - pos2);
+                let positionLEFT = (elmnt.offsetLeft - pos1);
+                let endpoint = "{{ route('api.dreamposition') }}";
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.post(endpoint, {
+                    top: positionTOP,
+                    left: positionLEFT,
+                    board_id: boardID,
+                    dream_id: dreamID
+                });
             }
         }
     </script>

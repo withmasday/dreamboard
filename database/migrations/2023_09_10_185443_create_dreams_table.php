@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('dreams', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('board_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('username')->nullable();
             $table->text('text');
             $table->boolean('incognito')->default(false);
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
