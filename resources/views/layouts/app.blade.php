@@ -36,7 +36,8 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end mt-3">
                             <li>
-                                <a href="/signout.php" id="logout" class="dropdown-item" type="button">
+                                <a href="{{ route('dashboard.logout') }}" id="logout" class="dropdown-item"
+                                    type="button">
                                     Sign Out
                                 </a>
                             </li>

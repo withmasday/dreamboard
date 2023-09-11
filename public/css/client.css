@@ -1,4 +1,26 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+:root {
+    --danger: rgba(255, 71, 87, 1);
+    --bg-danger: rgba(255, 71, 87, 0.3);
+    --success: rgba(46, 213, 115, 1);
+    --bg-success: rgba(46, 213, 115, 0.3);
+    --primary: rgba(55, 66, 250, 1);
+    --bg-primary: rgba(55, 66, 250, 0.3);
+    --light: rgba(241, 242, 246, 1);
+    --bg-light: rgba(241, 242, 246, 0.3);
+    --secondary: rgba(164, 176, 190, 1);
+    --bg-secondary: rgba(164, 176, 190, 0.3);
+    --dark: rgba(47, 53, 66, 1);
+    --bg-dark: rgba(47, 53, 66, 0.3);
+    --info: rgba(30, 144, 255, 1);
+    --bg-info: rgba(30, 144, 255, 0.3);
+    --warning: rgba(246, 229, 141, 1);
+    --bg-warning: rgba(246, 229, 141, 0.3);
+    --white: rgba(255, 255, 255, 1);
+    --transparent: transparent;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -54,4 +76,114 @@
     position: absolute;
     padding-top: 30px;
     padding-left: 30px;
+}
+
+.btn-plus,
+.btn-plus:hover {
+    font-size: 28px;
+    color: #ffffff;
+    z-index: 99999999;
+    position: absolute;
+    padding-top: 35px;
+    right: 30px;
+}
+
+@media only screen and (max-width: 767px) {
+    .btn-plus,
+    .btn-plus:hover {
+        font-size: 28px;
+        color: #ffffff;
+        z-index: 99999999;
+        position: absolute;
+        padding-top: 28px;
+        right: 30px;
+    }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+textarea {
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    padding-left: 0px !important;
+    border-bottom: 2px solid var(--bg-secondary) !important;
+    color: var(--dark) !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+
+/* Bootstrap Toggle Checkbox */
+.toggle-on,
+.toggle-on:hover {
+    background-color: var(--bg-primary) !important;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    text-align: center !important;
+}
+
+.toggle-off,
+.toggle-off:hover {
+    text-align: center !important;
+    background-color: var(--bg-danger) !important;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-weight: 700 !important;
+    color: var(--danger) !important;
+}
+
+label {
+    color: var(--secondary);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.btn-primaryc,
+.btn-primaryc:hover {
+    background-color: var(--bg-primary);
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.btn-dangerc,
+.btn-dangerc:hover {
+    background-color: var(--bg-danger);
+    color: var(--danger);
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 5px !important;
+    padding: 8px 20px 8px 20px;
+}
+
+.remover {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    text-align: center;
+    display: none;
+}
+
+.box * {
+    transition: 0.5s;
+}
+
+.box:hover .hider {
+    opacity: 0 !important;
+}
+
+.box:hover .remover {
+    display: inline;
 }

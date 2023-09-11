@@ -166,7 +166,21 @@ class BoardController extends Controller
             $board = Board::where('id', '=', $board_id)->where('username', '=', $username)->first();
             $data = Dream::where('board_id', '=', $board_id)->get();
 
-            return view('board', ['title' => $board->title, 'data' => $data, 'board_id' => $board_id]);
+            if ($board->publish) {
+                $sess_password = null;
+            } else {
+                $sess_password = $request->session()->get('password');
+            }
+
+            return view('board', [
+                'title' => $board->title,
+                'data' => $data,
+                'board_id' => $board_id,
+                'user_id' => Auth::user()->id,
+                'publish' => $board->publish,
+                'password' => $board->password,
+                'sess_password' => $sess_password
+            ]);
         } catch (Throwable $e) {
             return back()->with('error', 'We will back again.');
         }

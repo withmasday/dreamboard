@@ -30,7 +30,7 @@
                             <th scope="col" class="text-secondary text-center">Board Title</th>
                             <th scope="col" class="text-secondary text-center">Publish</th>
                             <th scope="col" class="text-secondary text-center">Password</th>
-                            <th scope="col" class="text-secondary text-center" style="width: 230px;">Action</th>
+                            <th scope="col" class="text-secondary text-center" style="width: 300px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +49,11 @@
                                 <td class="text-secondary text-center">
                                     {{ $board->password == null ? '-' : $board->password }}</td>
                                 <td class="text-secondary text-center">
+                                    @php $params = route('board', [$board->username, $board->id]); @endphp
+                                    <button type="button" class="btn btn-successc mx-1 cursor-pointer"
+                                        onclick="copy('{{ $params }}')">
+                                        <i class="bi bi-share-fill"></i>
+                                    </button>
                                     <a href="{{ route('dashboard.board.show', $board->id) }}" class="btn btn-primaryc mx-1">
                                         <i class="bi bi-eye-fill"></i>
                                     </a>
@@ -71,4 +76,13 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('javascript')
+    <script type="text/javascript">
+        function copy(uri) {
+            navigator.clipboard.writeText(uri);
+        }
+    </script>
 @endsection

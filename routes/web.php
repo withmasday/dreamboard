@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\BoardController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DreamController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::post('/handleSignup', [RegisterController::class, 'handleSignup'])->name(
 
 Route::prefix('/dashboard')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('dashboard.logout');
 
     Route::prefix('/board')->middleware(['auth'])->group(function () {
         Route::get('/', [BoardController::class, 'index'])->name('dashboard.board.index');
@@ -46,6 +48,8 @@ Route::prefix('/helper')->middleware(['auth'])->group(function () {
 
 Route::prefix('/board')->middleware(['auth'])->group(function () {
     Route::get('/{username}/{board_id}', [BoardController::class, 'board'])->name('board');
+    Route::post('/dream/{board_id}', [DreamController::class, 'store'])->name('board.dream.store');
+    Route::post('/openaccess', [DreamController::class, 'openaccess'])->name('board.dream.openaccess');
 });
 
 Route::get('/', function () {
