@@ -25,7 +25,7 @@ Auth::routes(['password.request' => false, 'password.update' => false, 'password
 Route::post('/handleSignin', [LoginController::class, 'handleSignin'])->name('handleSignin');
 Route::post('/handleSignup', [RegisterController::class, 'handleSignup'])->name('handleSignup');
 
-Route::get('/googleAuth', [LoginController::class, 'googleAuth'])->name('googleAuth');
+Route::get('/auth/redirect', [LoginController::class, 'googleAuth'])->name('googleAuth');
 Route::get('/auth/callback', [LoginController::class, 'googleCallback'])->name('googleCallback');
 
 Route::prefix('/dashboard')->middleware(['auth'])->group(function () {
