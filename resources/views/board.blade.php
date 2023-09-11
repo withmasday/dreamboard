@@ -189,7 +189,7 @@
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: "Yes, remove now.",
-                denyButtonText: "No, cancle it.",
+                denyButtonText: "No, Cancel it.",
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -200,7 +200,7 @@
                         }
                     });
                 } else if (result.isDenied) {
-                    Swal.fire("Cancle to remove dream text.", "", "info");
+                    Swal.fire("Cancel to remove dream text.", "", "info");
                 }
             });
         }
