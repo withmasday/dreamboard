@@ -69,6 +69,7 @@ class LoginController extends Controller
             'password' => bcrypt(Str::uuid())
         ];
 
+        User::create($data);
         if (Auth::attempt($data)) {
             return redirect()->route('dashboard.index')->with('success', 'Sign In Success.');
         } else {
