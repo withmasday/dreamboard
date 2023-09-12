@@ -17,34 +17,35 @@
         {{ env('APP_NAME') }}
         <span class="heading"> | {{ $title }}</span>
     </h1>
-
     @if ($publish || $password == $sess_password)
         <button type="button" class="btn bg-transparent btn-plus" onclick="dreamModal()">
             <span class="bi bi-plus-square"></span>
         </button>
 
-        @foreach ($data as $dream)
-            <div class="box shadow-sm" id="box-dreamer-{{ $dream->id }}" box-id="{{ $dream->id }}"
-                style="color: {{ $dream->color }};background-color: {{ $dream->background }};">
-                {{ $dream->text }}
-                <div class="text-center {{ $dream->user_id == $user_id ? 'hider' : '' }}">
-                    <div class="writter" style="color: {{ $dream->color }};">
-                        {{ $dream->username == null ? 'Anonymous' : $dream->username }}</div>
-                    <div class="date" style="color: {{ $dream->color }};">
-                        {{ date('d/m/Y', strtotime($dream->created_at)) }}
+        <main>
+            @foreach ($data as $dream)
+                <div class="box shadow-sm" id="box-dreamer-{{ $dream->id }}" box-id="{{ $dream->id }}"
+                    style="color: {{ $dream->color }};background-color: {{ $dream->background }};">
+                    {{ $dream->text }}
+                    <div class="text-center {{ $dream->user_id == $user_id ? 'hider' : '' }}">
+                        <div class="writter" style="color: {{ $dream->color }};">
+                            {{ $dream->username == null ? 'Anonymous' : $dream->username }}</div>
+                        <div class="date" style="color: {{ $dream->color }};">
+                            {{ date('d/m/Y', strtotime($dream->created_at)) }}
+                        </div>
                     </div>
-                </div>
 
-                @if ($dream->user_id == $user_id)
-                    @php $removeURI = route('api.rmdreamer', [$dream->board_id, $dream->id]) @endphp
-                    <div class="remover">
-                        <button type="button" class="btn btn-dangerc" onclick="rmdreamer('{{ $removeURI }}')">
-                            <i class="bi bi-x-circle"></i>
-                        </button>
-                    </div>
-                @endif
-            </div>
-        @endforeach
+                    @if ($dream->user_id == $user_id)
+                        @php $removeURI = route('api.rmdreamer', [$dream->board_id, $dream->id]) @endphp
+                        <div class="remover">
+                            <button type="button" class="btn btn-dangerc" onclick="rmdreamer('{{ $removeURI }}')">
+                                <i class="bi bi-x-circle"></i>
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </main>
 
         <div class="modal fade" id="dreamerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="dreamerModalLabel" aria-hidden="true"
@@ -100,7 +101,6 @@
             </form>
         </div>
     @endif
-
     <script type="text/javascript" src="{{ asset('/js/particles.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/particles-app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/jquery-3.6.3.min.js') }}"></script>
